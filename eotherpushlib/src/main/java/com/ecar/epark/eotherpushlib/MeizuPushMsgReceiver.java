@@ -20,7 +20,7 @@ public class MeizuPushMsgReceiver extends MzPushMessageReceiver {
     @Deprecated
     public void onRegister(Context context, String pushid) {
         //应用在接受返回的pushid
-        SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(pushid)?"":pushid);
+
     }
     
     @Override
@@ -49,7 +49,11 @@ public class MeizuPushMsgReceiver extends MzPushMessageReceiver {
     @Override
     public void onRegisterStatus(Context context,RegisterStatus registerStatus) {
     	Log.i(TAG, "onRegisterStatus " + registerStatus);
-        //新版订阅回调
+        String pushId = registerStatus!=null?registerStatus.getPushId():"";
+        String e_push_other_token = SPHelper.getInstance().getString("E_PUSH_OTHER_TOKEN", "");
+        if(!e_push_other_token.equals(pushId)){
+            SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(pushId)?"":pushId);
+        }
     }
     
     @Override
