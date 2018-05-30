@@ -10,6 +10,7 @@ import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.ecar.epark.eproviderlib.provider.SPHelper;
 import com.huawei.hms.api.ConnectionResult;
 import com.huawei.hms.api.HuaweiApiClient;
 import com.huawei.hms.support.api.client.PendingResult;
@@ -18,11 +19,11 @@ import com.huawei.hms.support.api.push.HuaweiPush;
 import com.huawei.hms.support.api.push.TokenResult;
 import com.meizu.cloud.pushsdk.PushManager;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
-import com.xiaomi.channel.commonutils.logger.LoggerInterface;
-import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, HuaweiApiClient.OnConnectionFailedListener {
 
@@ -51,9 +52,28 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
         if (mApp == null) {
             return;
         }
-        huawei();
-        xiaomi();
-        meizu();
+        if (!shouldInit()) {
+            return;
+        }
+        SPHelper.getInstance().init(mApp);
+        String systemType = EDeviceUtils.getSystemType();
+        if(TextUtils.isEmpty(systemType)){
+            return;
+        }
+        if(systemType.equals(EDeviceUtils.SYS_EMUI)){
+            huawei();
+        }else if(systemType.equals(EDeviceUtils.SYS_MIUI)){
+            xiaomi();
+        }else if(systemType.equals(EDeviceUtils.SYS_FLYME)){
+            meizu();
+        }else {
+            JPushInterface.setDebugMode(true);
+            JPushInterface.init(mApp);
+        }
+        //设备厂商，小米、华为等
+        SPHelper.getInstance().save("E_PUSH_BRAND",systemType);
+        //具体型号
+        SPHelper.getInstance().save("E_PUSH_MODEL",EDeviceUtils.getOsBuildModel());
     }
 
     private void meizu() {
@@ -84,25 +104,25 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
                 return;
             }
             MiPushClient.registerPush(mApp, appIdValue, appKeyValue);
-            //打开Log
-            LoggerInterface newLogger = new LoggerInterface() {
-
-                @Override
-                public void setTag(String tag) {
-                    // ignore
-                }
-
-                @Override
-                public void log(String content, Throwable t) {
-                    Log.d(TAG, content, t);
-                }
-
-                @Override
-                public void log(String content) {
-                    Log.d(TAG, content);
-                }
-            };
-            Logger.setLogger(mApp, newLogger);
+//            //打开Log
+//            LogInterface newLog = new LogInterface() {
+//
+//                @Override
+//                public void setTag(String tag) {
+//                    // ignore
+//                }
+//
+//                @Override
+//                public void log(String content, Throwable t) {
+//                    Log.d(TAG, content, t);
+//                }
+//
+//                @Override
+//                public void log(String content) {
+//                    Log.d(TAG, content);
+//                }
+//            };
+//            Log.setLog(mApp, newLog);
         }
     }
 

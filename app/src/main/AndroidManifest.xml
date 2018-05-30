@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ecar.epark.eotherpush">
 
     <application
@@ -35,6 +36,17 @@
         <meta-data
             android:name="e_meizu_app_key"
             android:value="0c81829b37ec448da9228b9b417640bb" />
+
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="59218f63bfb940c33eefe836" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+        <!--<provider-->
+            <!--android:name="com.ecar.epark.eproviderlib.provider.SPContentProvider"-->
+            <!--android:authorities="${applicationId}.epush.provider"-->
+            <!--android:exported="false"-->
+            <!--android:process=":epush"-->
+            <!--tools:node="replace" />-->
     </application>
 
 </manifest>

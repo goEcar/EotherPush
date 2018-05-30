@@ -4,9 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ecar.epark.eproviderlib.provider.SPHelper;
 import com.huawei.hms.support.api.push.PushReceiver;
 
 import java.io.FileWriter;
@@ -47,7 +49,8 @@ public class EHwReceiver extends PushReceiver {
 	@Override
 	public void onToken(Context context, String arg1, Bundle arg2) {
 		super.onToken(context, arg1, arg2);
-		
+		SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(arg1)?"":arg1);
+
 		 showToast(" onToken" + arg1 + "bundke " + arg2,  context);
 	}
 

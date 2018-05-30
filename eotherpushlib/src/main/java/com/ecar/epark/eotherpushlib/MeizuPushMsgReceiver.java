@@ -1,8 +1,10 @@
 package com.ecar.epark.eotherpushlib;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.ecar.epark.eproviderlib.provider.SPHelper;
 import com.meizu.cloud.pushinternal.DebugLogger;
 import com.meizu.cloud.pushsdk.MzPushMessageReceiver;
 import com.meizu.cloud.pushsdk.notification.PushNotificationBuilder;
@@ -18,6 +20,7 @@ public class MeizuPushMsgReceiver extends MzPushMessageReceiver {
     @Deprecated
     public void onRegister(Context context, String pushid) {
         //应用在接受返回的pushid
+        SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(pushid)?"":pushid);
     }
     
     @Override
