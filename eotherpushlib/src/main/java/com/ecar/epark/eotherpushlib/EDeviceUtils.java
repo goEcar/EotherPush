@@ -21,19 +21,19 @@ public class EDeviceUtils {
     /**
      * 小米手机（MIUI系统）
      */
-    public static final String SYS_MIUI = "SYS_MIUI";
+    public static final String SYS_MIUI = "xiaomi";
     /**
      * 华为手机（EMUI系统）
      */
-    public static final String SYS_EMUI = "SYS_EMUI";
+    public static final String SYS_EMUI = "huawei";
     /**
      * 魅族手机，FLYME系统
      */
-    public static final String SYS_FLYME = "SYS_FLYME";
+    public static final String SYS_FLYME = "meizu";
     /**
      * 其他系统
      */
-    public static final String SYS_OTHER = "SYS_OTHER";
+    public static final String SYS_OTHER = "os_other";
 
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
