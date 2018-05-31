@@ -50,10 +50,7 @@ public class MeizuPushMsgReceiver extends MzPushMessageReceiver {
     public void onRegisterStatus(Context context,RegisterStatus registerStatus) {
     	Log.i(TAG, "onRegisterStatus " + registerStatus);
         String pushId = registerStatus!=null?registerStatus.getPushId():"";
-        String e_push_other_token = SPHelper.getInstance().getString("E_PUSH_OTHER_TOKEN", "");
-        if(!e_push_other_token.equals(pushId)){
-            SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(pushId)?"":pushId);
-        }
+        EDeviceUtils.setPushId(context,pushId);
     }
     
     @Override

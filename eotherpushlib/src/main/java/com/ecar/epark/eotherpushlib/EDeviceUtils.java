@@ -1,13 +1,16 @@
 package com.ecar.epark.eotherpushlib;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.ecar.epark.eproviderlib.provider.SPHelper;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 
 import java.io.File;
@@ -147,5 +150,18 @@ public class EDeviceUtils {
         } catch (Exception e) {
         }
         return model;
+    }
+
+    public static void setPushId(Context context,String pushId){
+        if(context==null){
+            return;
+        }
+        String ePushOtherToken = SPHelper.getInstance().getString("E_PUSH_OTHER_TOKEN", "");
+        if(!ePushOtherToken.equals(pushId)){
+            SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(pushId)?"":pushId);
+            Intent it = new Intent("com.ecarpush.OTHER_TOKEN");
+            it.setComponent(new ComponentName(context.getPackageName(), "com.ecar.pushlib.pushcore.EcarPushReceiver"));
+            context.sendBroadcast(it);
+        }
     }
 }

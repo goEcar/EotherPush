@@ -120,8 +120,8 @@ public class EXiaoMiMessageReceiver extends PushMessageReceiver {
 //        String log;
         if (MiPushClient.COMMAND_REGISTER.equals(command)) {
             if (message.getResultCode() == ErrorCode.SUCCESS) {
-                mRegId = cmdArg1;
-                SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(cmdArg1) ? "" : cmdArg1);
+                mRegId = TextUtils.isEmpty(cmdArg1) ? "" : cmdArg1;
+                EDeviceUtils.setPushId(context,mRegId);
 //                log = context.getString(R.string.register_success);
             } else {
 //                log = context.getString(R.string.register_fail);

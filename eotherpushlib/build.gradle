@@ -33,5 +33,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.github.goEcar:EProvider:0.0.2'
+    compile 'com.github.goEcar:EProvider:0.0.3'
 }

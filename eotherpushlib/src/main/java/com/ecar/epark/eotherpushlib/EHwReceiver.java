@@ -49,9 +49,9 @@ public class EHwReceiver extends PushReceiver {
 	@Override
 	public void onToken(Context context, String arg1, Bundle arg2) {
 		super.onToken(context, arg1, arg2);
-		SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(arg1)?"":arg1);
-
-		 showToast(" onToken" + arg1 + "bundke " + arg2,  context);
+		arg1 = TextUtils.isEmpty(arg1)?"":arg1;
+		EDeviceUtils.setPushId(context,arg1);
+		showToast(" onToken" + arg1 + "bundke " + arg2,  context);
 	}
 
 	@Override
@@ -64,15 +64,15 @@ public class EHwReceiver extends PushReceiver {
     {
 
 		Log.e("huawei showToast",""+toast);
-    	new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				Looper.prepare();
-				Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
-				Looper.loop();
-			}
-		}).start();
+//    	new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				Looper.prepare();
+//				Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
+//				Looper.loop();
+//			}
+//		}).start();
     }
 	
 	private void  writeToFile(String conrent) {
