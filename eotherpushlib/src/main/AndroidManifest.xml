@@ -59,6 +59,15 @@
 
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
+    <!-- 注：小米push 需要的权限 begin -->
+    <permission
+        android:name="${applicationId}.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
+    <!-- 这里com.example.mipushtest改成app的包名 -->
+    <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE" />
+    <!-- 这里com.example.mipushtest改成app的包名 -->
+    <!-- 注：小米push 需要的权限 end -->
+
     <!-- 往SDCard写入数据权限 -->
     <application
         android:allowBackup="true"
@@ -208,15 +217,5 @@
         </receiver>
 
         <!-- 注：小米push 需要的 end -->
-
-
-        <!-- 注：小米push 需要的权限 begin -->
-        <permission
-            android:name="${applicationId}.permission.MIPUSH_RECEIVE"
-            android:protectionLevel="signature" />
-        <!-- 这里com.example.mipushtest改成app的包名 -->
-        <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE" />
-        <!-- 这里com.example.mipushtest改成app的包名 -->
-        <!-- 注：小米push 需要的权限 end -->
     </application>
 </manifest>

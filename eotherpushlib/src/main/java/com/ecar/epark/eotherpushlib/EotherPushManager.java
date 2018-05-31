@@ -19,6 +19,8 @@ import com.huawei.hms.support.api.push.HuaweiPush;
 import com.huawei.hms.support.api.push.TokenResult;
 import com.meizu.cloud.pushsdk.PushManager;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
+import com.xiaomi.channel.commonutils.logger.LoggerInterface;
+import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.List;
@@ -56,28 +58,28 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
         }
         SPHelper.getInstance().init(mApp);
         String systemType = EDeviceUtils.getSystemType();
-        if(TextUtils.isEmpty(systemType)){
+        if (TextUtils.isEmpty(systemType)) {
             return;
         }
-        if(systemType.equals(EDeviceUtils.SYS_EMUI)){
+        if (systemType.equals(EDeviceUtils.SYS_EMUI)) {
             huawei();
-        }else if(systemType.equals(EDeviceUtils.SYS_MIUI)){
+        } else if (systemType.equals(EDeviceUtils.SYS_MIUI)) {
             xiaomi();
-        }else if(systemType.equals(EDeviceUtils.SYS_FLYME)){
+        } else if (systemType.equals(EDeviceUtils.SYS_FLYME)) {
             meizu();
-        }else {
+        } else {
         }
         //设备厂商，小米、华为等
-        SPHelper.getInstance().save("E_PUSH_BRAND",systemType);
+        SPHelper.getInstance().save("E_PUSH_BRAND", systemType);
         //具体型号
-        SPHelper.getInstance().save("E_PUSH_MODEL",EDeviceUtils.getOsBuildModel());
+        SPHelper.getInstance().save("E_PUSH_MODEL", EDeviceUtils.getOsBuildModel());
     }
 
     private void meizu() {
-        if(MzSystemUtils.isBrandMeizu()){
+        if (MzSystemUtils.isBrandMeizu()) {
             String appIdValue = getMetaValue(mApp, MeiZu_APP_ID);
             String appKeyValue = getMetaValue(mApp, Meizu_APP_KEY);
-            if(TextUtils.isEmpty(appIdValue) || TextUtils.isEmpty(appKeyValue)){
+            if (TextUtils.isEmpty(appIdValue) || TextUtils.isEmpty(appKeyValue)) {
                 Log.i(TAG, "MeiZu_APP_ID or Meizu_APP_KEY  is null");
                 return;
             }
@@ -96,30 +98,30 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
         if (shouldInit()) {
             String appIdValue = getMetaValue(mApp, XIAOMI_APP_ID);
             String appKeyValue = getMetaValue(mApp, XIAOMI_APP_KEY);
-            if(TextUtils.isEmpty(appIdValue) || TextUtils.isEmpty(appKeyValue)){
+            if (TextUtils.isEmpty(appIdValue) || TextUtils.isEmpty(appKeyValue)) {
                 Log.i(TAG, "XIAOMI_APP_ID or XIAOMI_APP_KEY  is null");
                 return;
             }
             MiPushClient.registerPush(mApp, appIdValue, appKeyValue);
-//            //打开Log
-//            LogInterface newLog = new LogInterface() {
-//
-//                @Override
-//                public void setTag(String tag) {
-//                    // ignore
-//                }
-//
-//                @Override
-//                public void log(String content, Throwable t) {
-//                    Log.d(TAG, content, t);
-//                }
-//
-//                @Override
-//                public void log(String content) {
-//                    Log.d(TAG, content);
-//                }
-//            };
-//            Log.setLog(mApp, newLog);
+//打开Log
+            LoggerInterface newLogger = new LoggerInterface() {
+
+                @Override
+                public void setTag(String tag) {
+                    // ignore
+                }
+
+                @Override
+                public void log(String content, Throwable t) {
+                    Log.d(TAG, content, t);
+                }
+
+                @Override
+                public void log(String content) {
+                    Log.d(TAG, content);
+                }
+            };
+            Logger.setLogger(mApp, newLogger);
         }
     }
 
@@ -135,9 +137,6 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
         }
         return false;
     }
-
-
-
 
 
     private void huawei() {
