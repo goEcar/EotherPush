@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
+import java.util.UUID;
 
 public class EDeviceUtils {
 
@@ -112,36 +113,6 @@ public class EDeviceUtils {
         return MzSystemUtils.isBrandMeizu();
     }
 
-    /**
-     * 友盟获取设备参数
-     *
-     * @param context
-     * @return
-     */
-    public static String getDeviceInfo(Context context) {
-        String device_id = "";
-        try {
-//            org.json.JSONObject json = new org.json.JSONObject();
-            android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context
-                    .getSystemService(Context.TELEPHONY_SERVICE);
-
-            device_id = tm.getDeviceId();
-//            android.net.wifi.WifiManager wifi = (android.net.wifi.WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-//            String mac = wifi.getConnectionInfo().getMacAddress();
-//            json.put("mac", mac);
-
-//            if (TextUtils.isEmpty(device_id)) {
-//                device_id = mac;
-//            }
-//            json.put("device_id", device_id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (TextUtils.isEmpty(device_id)) {
-            device_id = android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-        }
-        return TextUtils.isEmpty(device_id) ? "" : device_id;
-    }
 
     public static String getOsBuildModel() {
         String model = "notknow";
@@ -163,5 +134,18 @@ public class EDeviceUtils {
             it.setComponent(new ComponentName(context.getPackageName(), "com.ecar.pushlib.pushcore.EcarPushReceiver"));
             context.sendBroadcast(it);
         }
+    }
+
+    public static String getDeviceId(Context context){
+        String imei = "notknow";
+        try{
+            if(context!=null){
+                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+                imei = telephonyManager.getDeviceId();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return imei;
     }
 }

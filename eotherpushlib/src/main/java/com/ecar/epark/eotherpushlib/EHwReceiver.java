@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -62,8 +63,7 @@ public class EHwReceiver extends PushReceiver {
 
 	public  void showToast(final String toast, final Context context)
     {
-
-		Log.e("huawei showToast",""+toast);
+		Log.e("huawei showToast",""+toast +"   imei:"+ EDeviceUtils.getDeviceId(context));
 //    	new Thread(new Runnable() {
 //
 //			@Override
