@@ -23,7 +23,6 @@ import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.List;
 
-import cn.jpush.android.api.JPushInterface;
 
 public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, HuaweiApiClient.OnConnectionFailedListener {
 
@@ -67,8 +66,6 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
         }else if(systemType.equals(EDeviceUtils.SYS_FLYME)){
             meizu();
         }else {
-            JPushInterface.setDebugMode(true);
-            JPushInterface.init(mApp);
         }
         //设备厂商，小米、华为等
         SPHelper.getInstance().save("E_PUSH_BRAND",systemType);
