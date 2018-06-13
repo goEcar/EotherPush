@@ -72,7 +72,7 @@ public class MeizuPushMsgReceiver extends MzPushMessageReceiver {
     }
     @Override
     public void onNotificationArrived(Context context, String title, String content, String selfDefineContentString) {
-       //通知栏消息到达回调
+       //通知栏消息到达 回调
        DebugLogger.i(TAG,"onNotificationArrived title "+title + "content "+content + " selfDefineContentString "+selfDefineContentString);
     }
         
