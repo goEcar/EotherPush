@@ -25,15 +25,15 @@ public class EDeviceUtils {
     /**
      * 小米手机（MIUI系统）
      */
-    public static final String SYS_MIUI = "xiaomi";
+    public static final String SYS_MIUI = "Xiaomi";
     /**
      * 华为手机（EMUI系统）
      */
-    public static final String SYS_EMUI = "huawei";
+    public static final String SYS_EMUI = "Huawei";
     /**
      * 魅族手机，FLYME系统
      */
-    public static final String SYS_FLYME = "meizu";
+    public static final String SYS_FLYME = "Meizu";
     /**
      * 其他系统
      */
@@ -137,7 +137,7 @@ public class EDeviceUtils {
     }
 
     public static String getDeviceId(Context context){
-        String imei = "notknow";
+        String imei = "";
         try{
             if(context!=null){
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);

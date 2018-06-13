@@ -4,6 +4,7 @@
     package="com.ecar.epark.eotherpush">
 
     <application
+        android:name=".EApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -31,11 +32,11 @@
 
         <meta-data
             android:name="e_meizu_app_id"
-            android:value="113660" />
+            android:value="1000621" />
 
         <meta-data
             android:name="e_meizu_app_key"
-            android:value="0c81829b37ec448da9228b9b417640bb" />
+            android:value="153a863baba74cf1bccedbab5a9c1a40" />
 
         <meta-data
             android:name="JPUSH_APPKEY"
