@@ -26,6 +26,8 @@ import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, HuaweiApiClient.OnConnectionFailedListener {
 
@@ -72,9 +74,12 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
             xiaomi();
         } else if (systemType.equals(EDeviceUtils.SYS_FLYME)) {
             meizu();
-        } else if(com.coloros.mcssdk.PushManager.isSupportPush(mApp)){
+        } else if (com.coloros.mcssdk.PushManager.isSupportPush(mApp)) {
             systemType = "Oppo";
             oppo();
+        } else {
+            systemType = "Jiguang";
+            jiguang();
         }
         //设备厂商，小米、华为等
         SPHelper.getInstance().save("E_PUSH_BRAND", systemType);
@@ -82,12 +87,22 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
         SPHelper.getInstance().save("E_PUSH_MODEL", EDeviceUtils.getOsBuildModel());
     }
 
+    private void jiguang() {
+        try {
+            JPushInterface.setDebugMode(true);
+            JPushInterface.init(mApp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void oppo() {
         try {
             Log.i(TAG, "oppo init push");
             String appKeyValue = getMetaValue(mApp, OPPO_APP_KEY);
             String appSecretValue = getMetaValue(mApp, OPPO_APP_SECRET);
-            com.coloros.mcssdk.PushManager.getInstance().register(mApp, appKeyValue, appSecretValue, new PushCallbackCustom());//setPushCallback接口也可设置callback
+            com.coloros.mcssdk.PushManager.getInstance().register(mApp, appKeyValue, appSecretValue, new EOppoPushCallback());//setPushCallback接口也可设置callback
         } catch (Exception e) {
             e.printStackTrace();
         }

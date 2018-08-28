@@ -12,10 +12,10 @@ import java.util.List;
  * Created by lh on 2018/8/27.
  */
 
-public class PushCallbackCustom implements PushCallback {
+public class EOppoPushCallback implements PushCallback {
     @Override
     public void onRegister(int i, String s) {
-        Log.e("oppo PushCallbackCustom", "onRegisterStatus " + s);
+        Log.e("EOppoPushCallback", "onRegisterStatus " + s);
         String pushId = ErrorCode.SUCCESS == i?s:"";
         EDeviceUtils.setPushId(EotherPushManager.mApp,pushId);
     }
