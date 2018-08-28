@@ -70,6 +70,6 @@
 -keep interface com.huawei.android.hms.agent.common.INoProguard {*;}
 -keep class * extends com.huawei.android.hms.agent.common.INoProguard {*;}
 
-
+-keep public class * extends android.app.Service
 
 

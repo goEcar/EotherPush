@@ -42,6 +42,17 @@
             android:name="JPUSH_APPKEY"
             android:value="59218f63bfb940c33eefe836" /> <!--  </>值来自开发者平台取得的AppKey-->
 
+
+
+        <meta-data
+            android:name="e_oppo_app_key"
+            android:value="3yPwb0EBKj6sKs8SSwk080s84" />
+
+        <meta-data
+            android:name="e_oppo_app_secret"
+            android:value="A1d2C95394434d83Bb45f31F83595eB1" />
+
+
         <provider
             android:name="com.ecar.pushlib.provider.SPContentProvider"
             android:authorities="${applicationId}.epush.provider"

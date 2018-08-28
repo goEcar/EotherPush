@@ -124,15 +124,19 @@ public class EDeviceUtils {
     }
 
     public static void setPushId(Context context,String pushId){
-        if(context==null){
-            return;
-        }
-        String ePushOtherToken = SPHelper.getInstance().getString("E_PUSH_OTHER_TOKEN", "");
-        if(!ePushOtherToken.equals(pushId)){
-            SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(pushId)?"":pushId);
-            Intent it = new Intent("com.ecarpush.OTHER_TOKEN");
-            it.setComponent(new ComponentName(context.getPackageName(), "com.ecar.pushlib.pushcore.EcarPushReceiver"));
-            context.sendBroadcast(it);
+        try {
+            if(context==null){
+                return;
+            }
+            String ePushOtherToken = SPHelper.getInstance().getString("E_PUSH_OTHER_TOKEN", "");
+            if(!ePushOtherToken.equals(pushId)){
+                SPHelper.getInstance().save("E_PUSH_OTHER_TOKEN", TextUtils.isEmpty(pushId)?"":pushId);
+                Intent it = new Intent("com.ecarpush.OTHER_TOKEN");
+                it.setComponent(new ComponentName(context.getPackageName(), "com.ecar.pushlib.pushcore.EcarPushReceiver"));
+                context.sendBroadcast(it);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

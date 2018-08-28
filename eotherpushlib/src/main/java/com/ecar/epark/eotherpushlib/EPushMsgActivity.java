@@ -21,8 +21,21 @@ public class EPushMsgActivity extends Activity {
         txMsg.setText("EPushMsgActivity");
 //        Intent intent = getIntent();
 //        Uri data = intent.getData();
-        if (getIntent() != null && getIntent().getData() != null) {
-            String content = getIntent().getData().toString();
+        String pushData = EOtherPushUtil.getPushData(getIntent());
+        Log.e("EPushMsgActivity", "onCreate pushData:" + pushData);
+        if (getIntent() != null ) {
+            String content = "null";
+            if(getIntent().getData() != null){
+                content = getIntent().getData().getQueryParameter("content");
+            }else if(getIntent().getExtras()!=null){
+                Bundle bundle =  getIntent().getExtras();
+                for (String key: bundle.keySet())
+                {
+                    Log.i("Bundle Content", "Key=" + key + ", content=" +bundle.getString(key));
+                }
+
+            }
+
             Log.e("EPushMsgActivity", "onCreate:" + content);
         }
     }

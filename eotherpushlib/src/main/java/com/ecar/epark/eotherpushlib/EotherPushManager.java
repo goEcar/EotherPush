@@ -10,6 +10,7 @@ import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.coloros.mcssdk.callback.PushCallback;
 import com.ecar.epark.eproviderlib.provider.SPHelper;
 import com.huawei.hms.api.ConnectionResult;
 import com.huawei.hms.api.HuaweiApiClient;
@@ -29,7 +30,7 @@ import java.util.List;
 public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, HuaweiApiClient.OnConnectionFailedListener {
 
     private HuaweiApiClient client;
-    private Application mApp;
+    public static Application mApp;
 
     private static EotherPushManager eotherPushManager;
 
@@ -42,6 +43,10 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
             }
         }
         return eotherPushManager;
+    }
+
+    public Application getmApp() {
+        return mApp;
     }
 
     private EotherPushManager(Application mApp) {
@@ -67,12 +72,25 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
             xiaomi();
         } else if (systemType.equals(EDeviceUtils.SYS_FLYME)) {
             meizu();
-        } else {
+        } else if(com.coloros.mcssdk.PushManager.isSupportPush(mApp)){
+            systemType = "Oppo";
+            oppo();
         }
         //设备厂商，小米、华为等
         SPHelper.getInstance().save("E_PUSH_BRAND", systemType);
         //具体型号
         SPHelper.getInstance().save("E_PUSH_MODEL", EDeviceUtils.getOsBuildModel());
+    }
+
+    private void oppo() {
+        try {
+            Log.i(TAG, "oppo init push");
+            String appKeyValue = getMetaValue(mApp, OPPO_APP_KEY);
+            String appSecretValue = getMetaValue(mApp, OPPO_APP_SECRET);
+            com.coloros.mcssdk.PushManager.getInstance().register(mApp, appKeyValue, appSecretValue, new PushCallbackCustom());//setPushCallback接口也可设置callback
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void meizu() {
@@ -92,6 +110,9 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
 
     public final String MeiZu_APP_ID = "e_meizu_app_id";
     public final String Meizu_APP_KEY = "e_meizu_app_key";
+
+    public final String OPPO_APP_KEY = "e_oppo_app_key";
+    public final String OPPO_APP_SECRET = "e_oppo_app_secret";
 
     public void xiaomi() {
         //初始化push推送服务
