@@ -54,6 +54,10 @@
 -dontwarn com.ecar.epark.eotherpushlib.**
 -keep class com.ecar.epark.eotherpushlib.** {*;}
 
+-dontwarn com.coloros.mcssdk.**
+-keep class com.coloros.mcssdk.** {*;}
+
+
 -ignorewarning
 -keepattributes *Annotation*
 -keepattributes Exceptions
@@ -87,3 +91,7 @@
 -dontwarn com.google.**
 -keep class com.google.gson.** {*;}
 -keep class com.google.protobuf.** {*;}
+
+-keep class android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class * {*;}

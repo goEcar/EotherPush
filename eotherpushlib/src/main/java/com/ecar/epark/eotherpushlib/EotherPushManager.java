@@ -261,7 +261,7 @@ public class EotherPushManager implements HuaweiApiClient.ConnectionCallbacks, H
             }
             if (null != metaData) {
                 Object obj = metaData.get(metaKey);
-                apiKey = String.valueOf(obj);
+                apiKey = String.valueOf(obj).trim();
             }
         } catch (Exception e) {
             Log.e(TAG, "error " + e.getMessage());

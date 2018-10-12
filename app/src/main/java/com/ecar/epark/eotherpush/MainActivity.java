@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.e("MainActivity","onCreate");
-        EotherPushManager.getInstance(this.getApplication());
+
         if(getIntent()!=null && getIntent().getData()!=null){
             Log.e("MainActivity","onCreate:"+getIntent().getData().toString());
         }

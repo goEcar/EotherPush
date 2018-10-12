@@ -22,13 +22,21 @@
             android:name="com.huawei.hms.client.appid"
             android:value="100295175" />
 
+        <!--<meta-data-->
+            <!--android:name="e_xiaomi_app_id"-->
+            <!--android:value="\ 2882303761517803015" />-->
+
+        <!--<meta-data-->
+            <!--android:name="e_xiaomi_app_key"-->
+            <!--android:value="\ 5151780350015" />-->
+
         <meta-data
             android:name="e_xiaomi_app_id"
-            android:value="\ 2882303761517803015" />
+            android:value="\ 2882303761517330667" />
 
         <meta-data
             android:name="e_xiaomi_app_key"
-            android:value="\ 5151780350015" />
+            android:value="\ 5611733096667" />
 
         <meta-data
             android:name="e_meizu_app_id"
